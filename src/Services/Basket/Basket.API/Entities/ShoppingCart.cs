@@ -16,7 +16,7 @@ namespace Basket.API.Entities
                 decimal total = 0;
                 foreach (var item in Items)
                 {
-                    total = item.Price * item.Quantity;
+                    total += item.Price * item.Quantity;
                 }
                 return total;
             }
@@ -29,7 +29,8 @@ namespace Basket.API.Entities
 
         public ShoppingCart(string userName)
         {
-            Username = userName; 
+            Username = userName;
+            Items = new List<ShoppingCartItem>();
         }        
     }    
 }
