@@ -19,8 +19,8 @@ namespace Catalog.API.Controllers
 
         public CatalogController(IProductRepository repository, ILogger<CatalogController> logger)
         {
-            _repository = repository;
-            _logger = logger;
+            _repository = repository ?? throw new ArgumentException(nameof(repository)); ;
+            _logger = logger ?? throw new ArgumentException(nameof(logger)); ;
         }
 
         [HttpGet]
@@ -31,7 +31,7 @@ namespace Catalog.API.Controllers
             return Ok(products);
         }
 
-        [HttpGet("id:lenght(24)", Name = "GetProduct")]
+        [HttpGet("{id:length(24)}", Name = "GetProduct")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> GetProductById(string id)
@@ -70,7 +70,7 @@ namespace Catalog.API.Controllers
             return Ok(await _repository.UpdateProduct(product));
         }
 
-        [HttpDelete("id:lenght(24)", Name = "GetProduct")]
+        [HttpDelete("{id:length(24)}", Name = "GetProduct")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> DeleteProduct(string id)
         {

@@ -10,7 +10,7 @@ namespace Catalog.API.Data
         public static void SeedData(IMongoCollection<Product> collection)
         {
             bool exist = collection.Find(p => true).Any();  //Se verifica si hay datos en la coleccion
-            if (exist)
+            if (!exist)
             {
                 collection.InsertManyAsync(GetConfiguredProducts());
             }
